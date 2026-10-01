@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
-// Out of the 4,426,165,368 possible arrangements of eight queens on the board,
-// only 92 arrangements satisfy these constraints
 public class MagicSquares {
 
     public static Random random = new Random();
@@ -62,6 +60,7 @@ public class MagicSquares {
 
             createNewSquareMap();
             currentPanel.repaint();
+            bestPanel.repaint();
 
             currentFitness = calculateSquareMapValue();
 
@@ -72,6 +71,7 @@ public class MagicSquares {
             if (bestFitness >= currentFitness){
                 //why does cloning 2D arrays suck...
                 bestFitness = currentFitness;
+                bestMap = new byte[9];
                 bestMap = currentMap.clone();
                 bestPanel.repaint();
             }
@@ -112,6 +112,7 @@ public class MagicSquares {
         int valuesPlaced = 0;
 
         while (valuesPlaced < 9) {
+            //TODO - this is wrong but also somehow faster and technically allowed
             byte val = (byte) (random.nextInt(10) - 10);
 
             for (byte value : currentMap){

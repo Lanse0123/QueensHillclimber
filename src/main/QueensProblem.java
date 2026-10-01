@@ -34,6 +34,7 @@ public class QueensProblem {
     public static int SIMULATION_SPEED_DELAY = 0;
 
     public static void main(String[] args){
+        //TODO - none of these textures are needed
         try {
             //Textures taken from World War Chess
             queenImage = ImageIO.read(new File("src/main/resources/healerqueen.png"));
@@ -45,6 +46,7 @@ public class QueensProblem {
 
         createNewQueenMap();
 
+        //TODO - this doesnt need to do swingUtils and extra thread if rendering is removed
         SwingUtilities.invokeLater(() -> {
             createWindow();
 
@@ -57,6 +59,7 @@ public class QueensProblem {
         int currentQueenMapValue;
 
         while (!solvedConflict){
+            //TODO - this slowdown visualization switch isnt needed if rendering is removed
             try {
                 Thread.sleep(SIMULATION_SPEED_DELAY);
             } catch (Exception ignored){}
@@ -124,6 +127,7 @@ public class QueensProblem {
         return conflicts;
     }
 
+    //TODO - this should be replaced with something other than bogo sort
     public static void createNewQueenMap(){
         currentQueenMap = new boolean[8][8];
 
@@ -143,6 +147,7 @@ public class QueensProblem {
     //logic above
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     //drawing below
+    //TODO - none of the code below is needed if rendering is removed
 
     private static void createWindow() {
         JFrame frame = new JFrame("THE QUEEEEEN (levy) ((hi))");
