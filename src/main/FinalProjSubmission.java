@@ -38,5 +38,110 @@
 
 package main;
 
+import javax.swing.*;
+import java.awt.*;
+import java.util.Random;
+
 public class FinalProjSubmission {
+
+    public static Random random = new Random();
+
+    public static boolean[][] currentQueenMap;
+    public static boolean[][] bestQueenMap;
+
+    public static main.QueensProblem.QueenBoardPanel bestPanel;
+    public static main.QueensProblem.QueenBoardPanel currentPanel;
+
+    public static int bestQueenMapValue = Integer.MAX_VALUE;
+    public static boolean solvedConflict = false;
+
+    public static void main(String[] args){
+        createNewQueenMap();
+
+        solveQueens();
+    }
+
+    public static void solveQueens(){
+        int currentQueenMapValue;
+
+        while (!solvedConflict){
+
+            createNewQueenMap();
+            currentPanel.repaint();
+
+            currentQueenMapValue = calculateQueenMapValue();
+
+            if (currentQueenMapValue == 0){
+                solvedConflict = true;
+            }
+
+            if (bestQueenMapValue >= currentQueenMapValue){
+                //why does cloning 2D arrays suck...
+                bestQueenMapValue = currentQueenMapValue;
+                bestQueenMap = new boolean[8][8];
+                for (int row = 0; row < 8; row++) {
+                    bestQueenMap[row] = currentQueenMap[row].clone();
+                }
+                bestPanel.repaint();
+            }
+        }
+    }
+
+    //I tried so hard to make this better than the connect 4 version but oh well its ugly
+    private static int calculateQueenMapValue() {
+        int conflicts = 0;
+
+        for (int row1 = 0; row1 < 8; row1++) {
+            for (int col1 = 0; col1 < 8; col1++) {
+
+                if (!currentQueenMap[row1][col1]) {
+                    continue;
+                }
+
+                for (int row2 = row1; row2 < 8; row2++) {
+                    for (int col2 = 0; col2 < 8; col2++) {
+                        if (row2 == row1 && col2 <= col1) {
+                            continue;
+                        }
+
+                        if (!currentQueenMap[row2][col2]) {
+                            continue;
+                        }
+
+                        //row
+                        if (row1 == row2) {
+                            conflicts++;
+                        }
+                        //column
+                        else if (col1 == col2) {
+                            conflicts++;
+                        }
+                        //diagonal
+                        else if (Math.abs(row1 - row2) == Math.abs(col1 - col2)) {
+                            conflicts++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return conflicts;
+    }
+
+    //TODO - this should be replaced with something other than bogo sort
+    public static void createNewQueenMap(){
+        currentQueenMap = new boolean[8][8];
+
+        int queensPlaced = 0;
+
+        while (queensPlaced < 8) {
+            int row = random.nextInt(8);
+            int col = random.nextInt(8);
+
+            if (!currentQueenMap[row][col]) {
+                currentQueenMap[row][col] = true;
+                queensPlaced++;
+            }
+        }
+    }
 }
