@@ -49,9 +49,6 @@ public class FinalProjSubmission {
     public static boolean[][] currentQueenMap;
     public static boolean[][] bestQueenMap;
 
-    public static main.QueensProblem.QueenBoardPanel bestPanel;
-    public static main.QueensProblem.QueenBoardPanel currentPanel;
-
     public static int bestQueenMapValue = Integer.MAX_VALUE;
     public static boolean solvedConflict = false;
 
@@ -67,7 +64,6 @@ public class FinalProjSubmission {
         while (!solvedConflict){
 
             createNewQueenMap();
-            currentPanel.repaint();
 
             currentQueenMapValue = calculateQueenMapValue();
 
@@ -82,7 +78,6 @@ public class FinalProjSubmission {
                 for (int row = 0; row < 8; row++) {
                     bestQueenMap[row] = currentQueenMap[row].clone();
                 }
-                bestPanel.repaint();
             }
         }
     }
