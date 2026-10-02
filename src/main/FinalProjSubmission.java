@@ -127,16 +127,8 @@ public class FinalProjSubmission {
     public static void createNewQueenMap(){
         currentQueenMap = new boolean[8][8];
 
-        int queensPlaced = 0;
-
-        while (queensPlaced < 8) {
-            int row = random.nextInt(8);
-            int col = random.nextInt(8);
-
-            if (!currentQueenMap[row][col]) {
-                currentQueenMap[row][col] = true;
-                queensPlaced++;
-            }
+        for (int i = 0; i < 8; i++){
+            currentQueenMap[i][random.nextInt(8)] = true;
         }
     }
 }
